@@ -15,9 +15,7 @@ class ProdutoController extends Controller
     public function index()
     {
         $produtos = Produto::get();
-        return view("products.index", ["produtos"=> $produtos]);
-
-
+        return view("products.index", ["produtos" => $produtos]);
     }
 
     /**
@@ -37,8 +35,10 @@ class ProdutoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   Produto::create($request->all());
-        return redirect()->route('products.index');
+    {
+        Produto::create($request->all());
+        return redirect()->route('products.index')
+            ->with('success', 'Produto Criado com sucesso');
     }
 
     /**
@@ -49,7 +49,7 @@ class ProdutoController extends Controller
      */
     public function show($id)
     {
-        if( !$produto = Produto::find($id)){
+        if (!$produto = Produto::find($id)) {
             return redirect()->route('products.index');
         }
         return view('products.show', compact('produto'));
@@ -63,7 +63,7 @@ class ProdutoController extends Controller
      */
     public function edit($id)
     {
-        if( !$produto = Produto::find($id)){
+        if (!$produto = Produto::find($id)) {
             return redirect()->route('products.index');
         }
         return view('products.edit', compact('produto'));
@@ -77,16 +77,15 @@ class ProdutoController extends Controller
      * @param  \App\Models\Produto  $produto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        if( !$produto = Produto::find($id)){
+        if (!$produto = Produto::find($id)) {
             return redirect()->back();
-
         }
         $produto->update($request->all());
         return redirect()
-        ->route('products.index')
-        ->with('success','Produto Atualizados com Sucesso');
+            ->route('products.index')
+            ->with('success', 'Produto Atualizados com Sucesso');
     }
 
     /**
@@ -97,12 +96,11 @@ class ProdutoController extends Controller
      */
     public function destroy($id)
     {
-        if( !$produto = Produto::find($id))
+        if (!$produto = Produto::find($id))
             return redirect()->route('products.index');
-            $produto->delete();
-            return redirect()
+        $produto->delete();
+        return redirect()
             ->route('products.index')
-            ->with('success','Produto Deletado com Sucesso');
-
+            ->with('success', 'Produto Deletado com Sucesso');
     }
 }

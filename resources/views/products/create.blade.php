@@ -1,5 +1,4 @@
-@extends('welcome')
-
+@extends('inicio')
 @section('conteudo')
     <div class="row">
         <div class="col-sm-12">
@@ -14,20 +13,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <form action="{{ route('products.store') }}" method="post">
-                                @csrf
-                                <label for="Nome">Nome do produto</label>
-                                <input type="text" name="name" id="name" placeholder="Produto"
-                                    class="form-control"><br>
-                                <label for="Nome">Descrição</label>
-                                <textarea name="description" id="description" cols="30" rows="10" placeholder="Descrição"
-                                    class="form-control"></textarea>
-                                <label for="Nome">Preço</label>
-                                <input type="number" name="price" id="price" class="form-control">
-                                <label for="Nome">Quantidade</label>
-                                <input type="number" name="quantity" id="quantity" class="form-control">
-                                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                @include('_partials.form')
                             </form>
-
                         </div>
                     </div>
                 </div>
